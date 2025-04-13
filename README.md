@@ -37,3 +37,14 @@ This is an end-to-end project that uses a Bi-LSTM sentiment analyzer trained on 
 ## Notes
 - Ensure all datasets are correctly formatted and placed in the project directory.
 - The model training may take a few minutes depending on your hardware.
+
+# Emotion-Based Music Recommendation Chatbot
+
+This is an end-to-end project that uses a Bi-LSTM sentiment analyzer trained on a Twitter dataset to detect emotions and recommend songs from a tracks dataset, including Spotify links, based on user chat input.
+
+## Prerequisites
+- Python 3.8+
+- Required libraries: `tensorflow`, `keras`, `pandas`, `numpy`, `scikit-learn`, `streamlit`, `spotipy`, `tqdm`
+- Install dependencies using:
+  ```bash
+  pip install tensorflow keras pandas numpy scikit-learn streamlit spotipy==2.23.0 tqdm
