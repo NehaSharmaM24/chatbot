@@ -8,11 +8,11 @@ import http.client
 import json
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# Shazam API Setup
+
 SHAZAM_API_HOST = "shazam.p.rapidapi.com"
 SHAZAM_API_KEY = "632197b05bmsh9a0974bb39f36edp13dce8jsna88ce1a25d2c"
 
-# Load model, tokenizer, and processed tracks
+
 model = load_model('sentiment_model3.h5')
 with open('tokenizer.pkl', 'rb') as handle:
     tokenizer = pickle.load(handle)
@@ -86,7 +86,7 @@ if prompt := st.chat_input("Your thoughts..."):
                 st.write(questions["general"][st.session_state.step])
             st.session_state.messages.append({"role": "assistant", "content": questions["general"][st.session_state.step]})
         else:
-            # Analyze sentiment after all questions
+# Analyze sentiment after all questions
             conversation_text = " ".join(st.session_state.responses)
             chat_seq = tokenizer.texts_to_sequences([re.sub(r'[^\w\s]', '', conversation_text.lower())])
             chat_padded = pad_sequences(chat_seq, maxlen=100)
@@ -105,7 +105,7 @@ if prompt := st.chat_input("Your thoughts..."):
             with st.chat_message("assistant"):
                 st.write(f"Cool, I think you might be feeling {dominant_emotion} based on our chat. How about some songs to match that?")
                 recommended_songs = tracks[tracks['emotion'] == dominant_emotion][['artist_name', 'track_name', 'genre', 'shazam_link']].head(5)
-                # Re-fetch links if needed
+# Re-fetch links if needed
                 recommended_songs['shazam_link'] = recommended_songs.apply(lambda row: get_shazam_track_link(str(row['artist_name']).replace(" ", "_")) if row['shazam_link'] == "Link not found" else row['shazam_link'], axis=1)
                 st.write("Here are some tunes for you:")
                 st.table(recommended_songs)

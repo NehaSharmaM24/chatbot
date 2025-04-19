@@ -8,7 +8,7 @@ import requests
 from tqdm import tqdm
 import time
 
-# Shazam API Setup with hardcoded RapidAPI key
+# Shazam API
 RAPIDAPI_KEY = "632197b05bmsh9a0974bb39f36edp13dce8jsna88ce1a25d2c"
 
 # Load model and tokenizer
@@ -52,7 +52,7 @@ def get_song_link(artist: str, track: str):
         print("Song not found.")
         return "Link not found"
 
-# Load and process a subset of tracks.csv 
+# Load and process a subset of tracks.csv - 500 due to reuqest limits
 tracks = pd.read_csv('tracks.csv').head(500)
 tracks['lyrics'] = tracks['lyrics'].apply(lambda x: re.sub(r'[^\w\s]', '', str(x).lower()))
 tracks_sequences = tokenizer.texts_to_sequences(tracks['lyrics'])
@@ -64,8 +64,8 @@ tracks['emotion'] = tracks['emotion'].map(emotion_map)
 
 # Add Shazam links with progress bar
 tracks['shazam_link'] = [get_song_link(row.artist_name, row.track_name) for row in tqdm(tracks.itertuples(), total=len(tracks))]
-time.sleep(1)  # Minimal delay to respect API limits
+time.sleep(1)
 
-# Save processed tracks
+#Saving the final csv file
 tracks.to_csv('processed_tracks.csv', index=False)
 print("Processed tracks with Shazam links (subset of 30) saved to processed_tracks.csv")
