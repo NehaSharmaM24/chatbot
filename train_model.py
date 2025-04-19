@@ -6,6 +6,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import re
 from sklearn.model_selection import train_test_split
+import pickle
 
 # Load and preprocess emotions dataset
 emotions_data = pd.read_csv('emotions.csv')
@@ -27,7 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=5, batch_size=32)
 
 # Save model and tokenizer
-model.save('sentiment_model.h5')
+model.save('sentiment_model1.h5')
 import pickle
 with open('tokenizer.pkl', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)

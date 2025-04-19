@@ -9,10 +9,10 @@ from tqdm import tqdm
 import time
 
 # Shazam API Setup with hardcoded RapidAPI key
-RAPIDAPI_KEY = "f57fc66de0msh4aa3c157a2658a9p134c39jsn0222af7e0536"
+RAPIDAPI_KEY = "632197b05bmsh9a0974bb39f36edp13dce8jsna88ce1a25d2c"
 
 # Load model and tokenizer
-model = load_model('sentiment_model.h5')
+model = load_model('sentiment_model3.h5')
 with open('tokenizer.pkl', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
@@ -45,15 +45,15 @@ def get_song_link(artist: str, track: str):
         title = song["title"]
         subtitle = song["subtitle"]
         song_url = song["url"]
-        print(f"🎵 Found: {title} by {subtitle}")
-        print(f"🔗 Song URL: {song_url}")
+        print(f"Found: {title} by {subtitle}")
+        print(f"Song URL: {song_url}")
         return song_url
     except (KeyError, IndexError):
-        print("❌ Song not found.")
+        print("Song not found.")
         return "Link not found"
 
-# Load and process a subset of tracks.csv (first 30 rows for testing)
-tracks = pd.read_csv('tracks.csv').head(30)  # Temporary: Use only first 30 rows
+# Load and process a subset of tracks.csv 
+tracks = pd.read_csv('tracks.csv').head(500)
 tracks['lyrics'] = tracks['lyrics'].apply(lambda x: re.sub(r'[^\w\s]', '', str(x).lower()))
 tracks_sequences = tokenizer.texts_to_sequences(tracks['lyrics'])
 tracks_X = pad_sequences(tracks_sequences, maxlen=100)

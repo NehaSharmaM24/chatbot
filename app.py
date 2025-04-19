@@ -10,10 +10,10 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # Shazam API Setup
 SHAZAM_API_HOST = "shazam.p.rapidapi.com"
-SHAZAM_API_KEY = "f57fc66de0msh4aa3c157a2658a9p134c39jsn0222af7e0536"
+SHAZAM_API_KEY = "632197b05bmsh9a0974bb39f36edp13dce8jsna88ce1a25d2c"
 
 # Load model, tokenizer, and processed tracks
-model = load_model('sentiment_model.h5')
+model = load_model('sentiment_model3.h5')
 with open('tokenizer.pkl', 'rb') as handle:
     tokenizer = pickle.load(handle)
 tracks = pd.read_csv('processed_tracks.csv')
